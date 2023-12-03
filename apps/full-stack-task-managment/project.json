@@ -1,0 +1,63 @@
+{
+  "name": "full-stack-task-managment",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/full-stack-task-managment",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/next:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/apps/full-stack-task-managment"
+      },
+      "configurations": {
+        "development": {
+          "outputPath": "apps/full-stack-task-managment"
+        },
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/next:server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "full-stack-task-managment:build",
+        "dev": true
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "full-stack-task-managment:build:development",
+          "dev": true
+        },
+        "production": {
+          "buildTarget": "full-stack-task-managment:build:production",
+          "dev": false
+        }
+      }
+    },
+    "export": {
+      "executor": "@nx/next:export",
+      "options": {
+        "buildTarget": "full-stack-task-managment:build:production"
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/full-stack-task-managment/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "apps/full-stack-task-managment/**/*.{ts,tsx,js,jsx}"
+        ]
+      }
+    }
+  },
+  "tags": []
+}
